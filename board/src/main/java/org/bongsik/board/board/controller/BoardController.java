@@ -26,7 +26,7 @@ public class BoardController {
 	}
 	
 	@RequestMapping("/boardForm")
-	public String boardForm() {
+	public String boardForm(@ModelAttribute("boardVO") BoardVO boardVO, Model model) {
 		return "board/boardForm";
 	}
 	

@@ -43,10 +43,11 @@
 	<article>
 		<div class="container" role="main">
 			<h2>board Form</h2>
-			<form:form action="${pageContext.request.contextPath}/board/saveBoard"
-				name="form" id="form" role="form" method="post" modelAttribute="boardVO">	
+			<form:form name="form" id="form" role="form" modelAttribute="boardVO" method="post"
+			action="${pageContext.request.contextPath}/board/saveBoard">	
+				
 				<form:hidden path="bid"/>
-				<input type="hidden" name="mode">			
+				<input type="hidden" name="mode" />			
 				
 				<div class="mb-3">
 					<label for="title">제목</label> 
