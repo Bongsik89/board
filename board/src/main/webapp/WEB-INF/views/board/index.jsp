@@ -5,13 +5,31 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<!-- jQuery -->
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+	crossorigin="anonymous"></script>
+
 <!-- Bootstrap Css -->
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
 	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
 	crossorigin="anonymous">
-
 <title>board</title>
+<style>
+body {
+	padding-top: 70px;
+	padding-bottom: 30px;
+}
+</style>
+<script>
+	$(document).on('click', '#btnWriteForm', function(e){
+		e.preventDefault();
+		
+		location.href = "${pageContext.request.contextPath}/board/boardForm}";
+	});
+</script>
 </head>
 <body>
 	<article>
@@ -56,6 +74,10 @@
 						</c:choose>
 					</tbody>
 				</table>
+			</div>
+			<div>
+				<button type="button" class="btn -btn-sm btn-primary"
+					id="btnWriteForm">글쓰기</button>
 			</div>
 		</div>
 	</article>
