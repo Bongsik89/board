@@ -1,34 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ include file="/WEB-INF/views/layout/header.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<!-- jQuery -->
-
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-	crossorigin="anonymous"></script>
-
-<!-- Bootstrap Css -->
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
-	crossorigin="anonymous">
 <title>board</title>
-<style>
-body {
-	padding-top: 70px;
-	padding-bottom: 30px;
-}
-</style>
 <script>
 	$(document).on('click', '#btnWriteForm', function(e){
 		e.preventDefault();
 		
-		location.href = "${pageContext.request.contextPath}/board/boardForm}";
+		location.href = "${pageContext.request.contextPath}/board/boardForm";
 	});
+	
+	function fn_contentView(bid) {
+		var url = "${pageContext.request.contextPath}/board/getBoardContent"
+		url = url + "?bid="+bid;
+		location.href = url;
+	}
 </script>
 </head>
 <body>
@@ -47,6 +37,7 @@ body {
 					<thead>
 						<tr>
 							<th>NO.</th>
+							<th>카테고리</th>
 							<th>글제목</th>
 							<th>작성자</th>
 							<th>조회수</th>
@@ -60,11 +51,14 @@ body {
 									<td colspan="5" align="center">데이터가 없습니다.</td>
 								</tr>
 							</c:when>
-							<c:when test="${!empty boardList }">
-								<c:forEach var="list" items="${bordList }">
+							<c:when test="${!empty boardList}">
+								<c:forEach var="list" items="${boardList }">
 									<tr>
 										<td><c:out value="${list.bid }" /></td>
-										<td><c:out value="${list.title }" /></td>
+										<td><c:out value="${list.cate_cd }" /></td>
+										<td>
+										<a href="#" onClick="fn_contentView(<c:out value="${list.bid}"/>)">										
+										<c:out value="${list.title }" /></a></td>
 										<td><c:out value="${list.reg_id }" /></td>
 										<td><c:out value="${list.view_cnt }" /></td>
 										<td><c:out value="${list.reg_dt }" /></td>

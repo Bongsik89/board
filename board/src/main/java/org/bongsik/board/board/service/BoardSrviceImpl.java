@@ -16,8 +16,29 @@ public class BoardSrviceImpl implements BoardService{
 
 	@Override
 	public List<BoardVO> getBoardList() throws Exception {
-		// TODO Auto-generated method stub
 		return boardDAO.getBoardList();
+	}
+
+	@Override
+	public void insertBoard(BoardVO boardVO) throws Exception {
+		boardDAO.insertBoard(boardVO);		
+	}
+
+	@Override
+	public BoardVO getBoardContent(int bid) throws Exception {
+		boardDAO.updateViewCnt(bid);
+		return boardDAO.getBoardContent(bid);
+	}
+
+	@Override
+	public int updateBoard(BoardVO boardVO) throws Exception {		
+		return boardDAO.updateBoard(boardVO);
+	}
+
+	@Override
+	public void deleteBoard(int bid) throws Exception {
+		boardDAO.deleteBoard(bid);
+		
 	}
 	
 	
