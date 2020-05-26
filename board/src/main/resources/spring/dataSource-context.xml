@@ -13,11 +13,11 @@
 	
 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
 		<property name="driverClassName"
-			value="#{datasource['jdbc.driverClassName']}"></property>
+			value="com.mysql.cj.jdbc.Driver"></property>
 		<property name="jdbcUrl"
-			value="#{datasource['jdbc.url']}"></property>
-		<property name="username" value="#{datasource['jdbc.username']}"></property>
-		<property name="password" value="#{datasource['jdbc.password']}"></property>
+			value="jdbc:mysql://127.0.0.1:3306/board?useSSL=false&amp;serverTimezone=Asia/Seoul"></property>
+		<property name="username" value="board"></property>
+		<property name="password" value="1234"></property>
 	</bean>
 
 	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource"
