@@ -26,7 +26,7 @@ public class BoardDAOTest {
 	
 	@Test 
 	public void testGetBoardList() throws Exception {
-		List<BoardVO> boardList = boardDAO.getBoardList();
+		List<BoardVO> boardList = boardDAO.getBoardList(null);
 		logger.info("\n Board List \n ");
 		if(boardList.size() > 0) {
 			for(BoardVO list : boardList) {

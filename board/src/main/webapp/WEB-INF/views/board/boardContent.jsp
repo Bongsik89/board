@@ -40,10 +40,10 @@ $(document).on('click', '#btnDelete', function(){
 			<h2>board Content</h2>
 			
 			<div class="bg-white rounded shadow-sm">
-				<div class="board_title"><c:out value="${boardContent.title }"/></div>
+				<div class="board_title">제목 : <c:out value="${boardContent.title }"/></div>
 				<div class="board_info_box">
-				<span class="board_author"><c:out value="${boardContent.reg_id }"/></span>
-				<span class="board_date"><c:out value="${boardContent.reg_dt }"/></span>
+				<span class="board_author">작성자 : <c:out value="${boardContent.reg_id }"/></span>
+				<span class="board_date">작성일 : <c:out value="${boardContent.reg_dt }"/></span>
 				</div>
 				<div class="board_cate_cd">${boardContent.cate_cd }</div>
 				<div class="board_content">${boardContent.content }</div>

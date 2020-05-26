@@ -4,6 +4,8 @@ import javax.inject.Inject;
 
 import org.bongsik.board.board.model.BoardVO;
 import org.bongsik.board.board.service.BoardService;
+import org.bongsik.board.common.Pagination;
+import org.bongsik.board.common.Search;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -20,8 +22,32 @@ public class BoardController {
 	private BoardService boardService;
 	
 	@RequestMapping(value = "/getBoardList", method = RequestMethod.GET)
-	public String getBoardList(Model model) throws Exception{
-		model.addAttribute("boardList", boardService.getBoardList());
+	public String getBoardList(Model model, 
+					@RequestParam(required = false, defaultValue = "1")int page,
+					@RequestParam(required = false, defaultValue = "1")int range,
+					@RequestParam(required = false, defaultValue = "title") String searchType,
+					@RequestParam(required = false) String keyword,
+					@ModelAttribute("search") Search search) throws Exception{
+		
+		//검색
+		model.addAttribute("search", search);
+		search.setSearchType(searchType);
+		search.setKeyword(keyword);
+		
+		//전체 게시글 개수
+		int listCnt = boardService.getBoardListCnt(search);
+		
+		//검색
+		search.pageInfo(page, range, listCnt);
+		
+		//Pagination 객체생성
+		//Pagination pagination = new Pagination();
+		//pagination.pageInfo(page, range, listCnt);
+		//페이징
+		model.addAttribute("pagination", search);
+		
+		//게시글 화면 출력
+		model.addAttribute("boardList", boardService.getBoardList(search));
 		return "board/index";
 	}
 	
@@ -45,6 +71,8 @@ public class BoardController {
 	@RequestMapping(value = "/getBoardContent", method = RequestMethod.GET)
 	public String getBoardContent(Model model, @RequestParam("bid") int bid) throws Exception{
 		model.addAttribute("boardContent", boardService.getBoardContent(bid));
+		
+		System.out.println(boardService.getBoardContent(bid));
 		return "board/boardContent";
 	}
 	

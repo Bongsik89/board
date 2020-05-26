@@ -5,49 +5,100 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 
 <mapper namespace="org.bongsik.board.board.boardMapper">
 
-	<select id="getBoardList" resultType="org.bongsik.board.board.model.BoardVO">
+	<!-- 게시판 리스트 -->
+	<select id="getBoardList"
+		resultType="org.bongsik.board.board.model.BoardVO">
 		SELECT
-			BID, CATE_CD, TITLE, CONTENT, TAG, VIEW_CNT, REG_DT, REG_DT, EDIT_DT
+		BID, CATE_CD, TITLE, CONTENT, TAG, VIEW_CNT, REG_ID, REG_DT, EDIT_DT
 		FROM
-			TBL_BOARD
+		TBL_BOARD
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if
+				test="searchType=='title' and keyword != null and keyword != '' ">
+				AND TITLE like CONCAT('%', #{keyword}, '%')
+			</if>
+			<if
+				test="searchType=='content' and keyword != null and keyword != '' ">
+				AND CONTENT like CONCAT('%', #{keyword}, '%')
+			</if>
+			<if
+				test="searchType=='reg_id' and keyword != null and keyword != '' ">
+				AND reg_id like CONCAT('%', #{keyword}, '%')
+			</if>
+		</trim>
+		LIMIT #{startList}, #{listSize}
 	</select>
-	
-	<select id="getBoardContent" resultType="org.bongsik.board.board.model.BoardVO" 
-			parameterType="org.bongsik.board.board.model.BoardVO">
-		
+
+	<!-- 게시글 상세 -->
+	<select id="getBoardContent"
+		resultType="org.bongsik.board.board.model.BoardVO"
+		parameterType="org.bongsik.board.board.model.BoardVO">
+
 		SELECT
-			BID, CATE_CD, TITLE, CONTENT, TAG, VIEW_CNT, REG_DT, REG_DT, EDIT_DT
+		BID, CATE_CD, TITLE, CONTENT, TAG, VIEW_CNT, REG_ID, REG_DT, EDIT_DT
 		FROM
-			TBL_BOARD
+		TBL_BOARD
 		WHERE
-			BID = #{bid}			
+		BID = #{bid}
 	</select>
-	
-	<insert id="insertBoard" parameterType="org.bongsik.board.board.model.BoardVO">
-		INSERT INTO TBL_BOARD (CATE_CD, TITLE, CONTENT, TAG,VIEW_CNT, REG_ID, REG_DT,EDIT_DT)
-		VALUES (#{cate_cd}, #{title}, #{content}, #{tag}, 0, #{reg_id}, now(), now())
+
+	<!-- 게시글 작성 -->
+	<insert id="insertBoard"
+		parameterType="org.bongsik.board.board.model.BoardVO">
+		INSERT INTO TBL_BOARD (CATE_CD, TITLE, CONTENT,
+		TAG,VIEW_CNT, REG_ID, REG_DT,EDIT_DT)
+		VALUES (#{cate_cd}, #{title},
+		#{content}, #{tag}, 0, #{reg_id}, now(), now())
 	</insert>
-	
-	<update id="updateBoard" parameterType="org.bongsik.board.board.model.BoardVO">
-		UPDATE TBL_BOARD SET 
-				CATE_CD = #{cate_cd},
-				TITLE = #{title},
-				CONTENT = #{content},
-			 	TAG = #{tag},
-			 	EDIT_DT = now()
+
+	<!-- 게시글 수정 -->
+	<update id="updateBoard"
+		parameterType="org.bongsik.board.board.model.BoardVO">
+		UPDATE TBL_BOARD SET
+		CATE_CD = #{cate_cd},
+		TITLE = #{title},
+		CONTENT = #{content},
+		TAG = #{tag},
+		EDIT_DT = now()
 		WHERE
-			BID = ${bid}
+		BID = ${bid}
 	</update>
-		
+
+	<!-- 게시글 삭제 -->
 	<delete id="deleteBoard" parameterType="int">
 		DELETE FROM TBL_BOARD
 		WHERE BID = #{bid}
-	</delete>	
+	</delete>
 
-	<update id="updateViewCnt" parameterType="org.bongsik.board.board.model.BoardVO">
+	<!-- 게시글 조회수 -->
+	<update id="updateViewCnt"
+		parameterType="org.bongsik.board.board.model.BoardVO">
 		UPDATE TBL_BOARD SET
-			VIEW_CNT = VIEW_CNT + 1
+		VIEW_CNT = VIEW_CNT + 1
 		WHERE
-			BID = #{bid}
+		BID = #{bid}
 	</update>
+
+	<!-- 총 게시글 개수 확인 -->
+	<select id="getBoardListCnt" resultType="int">
+		SELECT
+		count(*) as listCnt
+		FROM
+		TBL_BOARD
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="keyword != null and keyword != '' ">
+				<if test="searchType=='title'">
+					AND TITLE like CONCAT('%', #{keyword}, '%')
+				</if>
+				<if test="searchType=='content'">
+					AND CONTENT like CONCAT('%', #{keyword}, '%')
+				</if>
+				<if test="searchType=='reg_id'">
+					AND reg_id like CONCAT('%', #{keyword}, '%')
+				</if>
+			</if>
+
+		</trim>
+
+	</select>
 </mapper>
