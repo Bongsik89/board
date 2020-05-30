@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>board</title>
-
+<script src="https://cdn.ckeditor.com/ckeditor5/19.0.0/classic/ckeditor.js"></script>
 <script>
 	$(document).on('click', '#btnSave', function(e) {
 		e.preventDefault();
@@ -83,6 +83,6 @@
 			</div>
 		</div>
 	</article>
-
+<script src="${pageContext.request.contextPath}/resources/common/js/ckeditor.js"></script>
 </body>
 </html>

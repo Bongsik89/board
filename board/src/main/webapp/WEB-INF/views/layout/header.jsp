@@ -6,3 +6,6 @@
 
 <!-- common CSS -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/common/css/common.css">
+
+<!-- jQuery -->
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>

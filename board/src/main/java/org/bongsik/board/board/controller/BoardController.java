@@ -3,8 +3,8 @@ package org.bongsik.board.board.controller;
 import javax.inject.Inject;
 
 import org.bongsik.board.board.model.BoardVO;
+import org.bongsik.board.board.model.ReplyVO;
 import org.bongsik.board.board.service.BoardService;
-import org.bongsik.board.common.Pagination;
 import org.bongsik.board.common.Search;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -48,6 +48,7 @@ public class BoardController {
 		
 		//게시글 화면 출력
 		model.addAttribute("boardList", boardService.getBoardList(search));
+		
 		return "board/index";
 	}
 	
@@ -71,8 +72,8 @@ public class BoardController {
 	@RequestMapping(value = "/getBoardContent", method = RequestMethod.GET)
 	public String getBoardContent(Model model, @RequestParam("bid") int bid) throws Exception{
 		model.addAttribute("boardContent", boardService.getBoardContent(bid));
-		
-		System.out.println(boardService.getBoardContent(bid));
+		/* List<ReplyVO> replyVO = replyService.getReplyList(bid); */
+		model.addAttribute("replyVO", new ReplyVO());
 		return "board/boardContent";
 	}
 	

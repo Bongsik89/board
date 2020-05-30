@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import org.bongsik.board.board.dao.BoardDAO;
 import org.bongsik.board.board.model.BoardVO;
+import org.bongsik.board.board.model.ReplyVO;
 import org.bongsik.board.common.Pagination;
 import org.bongsik.board.common.Search;
 import org.springframework.stereotype.Service;
@@ -50,6 +51,30 @@ public class BoardSrviceImpl implements BoardService{
 	public int getBoardListCnt(Search search) throws Exception {
 		// TODO Auto-generated method stub
 		return boardDAO.getBoardListCnt(search);
+	}
+	
+	@Override
+	public List<ReplyVO> getReplyList(int bid) throws Exception {
+		// TODO Auto-generated method stub
+		return boardDAO.getReplyList(bid);
+	}
+
+	@Override
+	public int saveReply(ReplyVO replyVO) throws Exception {
+		// TODO Auto-generated method stub
+		return boardDAO.saveReply(replyVO);
+	}
+
+	@Override
+	public int updateReply(ReplyVO replyVO) throws Exception {
+		// TODO Auto-generated method stub
+		return boardDAO.updateReply(replyVO);
+	}
+
+	@Override
+	public int deleteReply(int rid) throws Exception {
+		// TODO Auto-generated method stub
+		return boardDAO.deleteReply(rid);
 	}
 	
 	
