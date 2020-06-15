@@ -26,6 +26,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 				AND reg_id like CONCAT('%', #{keyword}, '%')
 			</if>
 		</trim>
+		order by bid desc
 		LIMIT #{startList}, #{listSize}
 
 	</select>
